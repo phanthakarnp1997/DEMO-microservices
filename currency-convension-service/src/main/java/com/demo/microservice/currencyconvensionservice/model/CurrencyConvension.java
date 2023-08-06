@@ -13,7 +13,7 @@ public class CurrencyConvension {
     private Long id;
     private String from;
     private String to;
-    private BigDecimal convensionMultiple;
+    private BigDecimal conversionMultiple;
     private BigDecimal quantity;
     private BigDecimal totalCalculatedAmount;
     private String environment;
