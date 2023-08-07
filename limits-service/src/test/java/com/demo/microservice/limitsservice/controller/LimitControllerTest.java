@@ -1,7 +1,6 @@
-package com.demo.microservice.limitsservice;
+package com.demo.microservice.limitsservice.controller;
 
 import com.demo.microservice.limitsservice.configuration.LimitsConfiguration;
-import com.demo.microservice.limitsservice.controller.LimitsController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
