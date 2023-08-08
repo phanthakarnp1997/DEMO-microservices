@@ -3,6 +3,7 @@ package com.demo.microservice.limitsservice.controller;
 import com.demo.microservice.limitsservice.configuration.LimitsConfiguration;
 import com.demo.microservice.limitsservice.model.Limits;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +16,8 @@ public class LimitsController {
     private LimitsConfiguration configuration;
 
     @GetMapping("/limits")
-    public Limits getLimits() {
-        return new Limits(configuration.getMinimum(), configuration.getMaximum());
+    public ResponseEntity<Limits> getLimits() {
+        return ResponseEntity.ok(new Limits(configuration.getMinimum(), configuration.getMaximum()));
     }
 
 }
