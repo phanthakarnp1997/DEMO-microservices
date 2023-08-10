@@ -18,9 +18,6 @@ public class CurrencyConvensionController {
     @Autowired
     private CurrencyExchangeProxy proxy;
 
-    @Autowired
-    private Environment environment;
-
     @GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
     public ResponseEntity<CurrencyConvension> getCurrencyConvension(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
 
@@ -34,7 +31,7 @@ public class CurrencyConvensionController {
                 quantity.multiply(currencyConvension.getConversionMultiple()),
                 currencyConvension.getEnvironment());
 
-        return new ResponseEntity<CurrencyConvension>(result, HttpStatus.OK);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
 }
