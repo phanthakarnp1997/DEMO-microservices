@@ -19,7 +19,7 @@ public class GatewayConfiguration {
                         .uri("lb://currency-exchange-service"))
                 .route(p -> p
                         .path("/currency-conversion/**")
-                        .uri("lb://currency-convension-service"))
+                        .uri("lb://currency-conversion-service"))
                 .build();
     }
 }
