@@ -1,8 +1,8 @@
-package com.demo.microservice.currencyconvensionservice.controller;
+package com.demo.microservice.currencyconversionservice.controller;
 
-import com.demo.microservice.currencyconvensionservice.configuration.LimitsConfiguration;
-import com.demo.microservice.currencyconvensionservice.model.CurrencyConversion;
-import com.demo.microservice.currencyconvensionservice.proxy.CurrencyExchangeProxy;
+import com.demo.microservice.currencyconversionservice.configuration.LimitsConfiguration;
+import com.demo.microservice.currencyconversionservice.model.CurrencyConversion;
+import com.demo.microservice.currencyconversionservice.proxy.CurrencyExchangeProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
