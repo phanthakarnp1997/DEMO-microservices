@@ -1,6 +1,6 @@
-package com.demo.microservice.currencyconvensionservice.proxy;
+package com.demo.microservice.currencyconversionservice.proxy;
 
-import com.demo.microservice.currencyconvensionservice.model.CurrencyConversion;
+import com.demo.microservice.currencyconversionservice.model.CurrencyConversion;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

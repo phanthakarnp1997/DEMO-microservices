@@ -1,4 +1,4 @@
-package com.demo.microservice.currencyconvensionservice.configuration;
+package com.demo.microservice.currencyconversionservice.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

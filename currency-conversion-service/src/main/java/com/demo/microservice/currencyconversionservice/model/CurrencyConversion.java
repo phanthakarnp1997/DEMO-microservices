@@ -1,4 +1,4 @@
-package com.demo.microservice.currencyconvensionservice.model;
+package com.demo.microservice.currencyconversionservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
