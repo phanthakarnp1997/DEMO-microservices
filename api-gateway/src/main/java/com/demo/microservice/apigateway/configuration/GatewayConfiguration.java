@@ -15,11 +15,8 @@ public class GatewayConfiguration {
 //                        .filters(f -> f.addRequestHeader("", ""))
                         .uri("http://httpbin.org:80"))
                 .route(p -> p
-                        .path("/currency-exchange/**")
-                        .uri("lb://currency-exchange-service"))
-                .route(p -> p
-                        .path("/currency-conversion/**")
-                        .uri("lb://currency-conversion-service"))
+                        .path("/portfolio/**")
+                        .uri("lb://portfolio-service"))
                 .build();
     }
 }
