@@ -1,8 +1,6 @@
 package com.demo.microservice.portfolioservice.service;
 
-import com.demo.microservice.portfolioservice.exception.NotFoundException;
 import com.demo.microservice.portfolioservice.model.User;
-import com.demo.microservice.portfolioservice.payload.request.UserRequest;
 import com.demo.microservice.portfolioservice.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
