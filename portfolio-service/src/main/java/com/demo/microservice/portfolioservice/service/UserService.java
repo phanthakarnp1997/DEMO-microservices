@@ -1,19 +1,58 @@
 package com.demo.microservice.portfolioservice.service;
 
+import com.demo.microservice.portfolioservice.exception.BadRequestException;
+import com.demo.microservice.portfolioservice.exception.NotFoundException;
 import com.demo.microservice.portfolioservice.model.User;
+import com.demo.microservice.portfolioservice.payload.request.UserRequest;
 import com.demo.microservice.portfolioservice.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getUser(){
-        List<User> findResults = userRepository.findAll();
-        return findResults.stream().findFirst().orElse(null);
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public User saveUser(UserRequest userRequest) {
+        User userMapped = new User();
+        modelMapper.map(userRequest, userMapped);
+        userMapped.setHashPassword("hashed-password");
+        userMapped.setLastLogin(new Date());
+        return userRepository.save(userMapped);
+    }
+
+    public User updateUser(Long userId, UserRequest userRequest) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException(String.format("User Not Found %s", userId));
+        }
+        User userMapped = optionalUser.get();
+        modelMapper.map(userRequest, userMapped);
+        return userRepository.save(userMapped);
+    }
+
+    public boolean deleteUser(Long userId) {
+        if (userRepository.existsById(userId)) {
+            userRepository.deleteById(userId);
+            return true;
+        }
+        return false;
     }
 }
