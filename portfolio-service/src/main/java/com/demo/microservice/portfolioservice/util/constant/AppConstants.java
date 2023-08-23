@@ -1,4 +1,4 @@
-package com.demo.microservice.portfolioservice.util;
+package com.demo.microservice.portfolioservice.util.constant;
 
 public class AppConstants {
     public static final String DEFAULT_PAGE_NUMBER = "0";
