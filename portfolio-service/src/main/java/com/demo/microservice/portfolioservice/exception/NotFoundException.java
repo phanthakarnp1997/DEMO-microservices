@@ -5,11 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class NotFoundException extends RuntimeException {
-    private ApiResponse apiResponse;
+public class NotFoundException extends BaseException {
+
+    public NotFoundException(int errorCode, String message) {
+        super(errorCode, message);
+    }
 
     public NotFoundException(ApiResponse apiResponse) {
-        this.apiResponse = apiResponse;
+        super(apiResponse);
     }
 
     public NotFoundException(String message) {
@@ -19,5 +22,4 @@ public class NotFoundException extends RuntimeException {
     public NotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }
