@@ -22,13 +22,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ApiResponse> badRequestExceptionHandler(Exception ex, WebRequest webRequest) {
-        return createErrorResponse(HttpStatus.BAD_REQUEST, ErrorCodes.BAD_REQUEST_BUSINESS_CODE_1, ex.getMessage(), webRequest.getDescription(false));
+    public ResponseEntity<ApiResponse> badRequestExceptionHandler(BadRequestException ex, WebRequest webRequest) {
+        int errorCode = (ex.getErrorCode() > 0) ? ex.getErrorCode() : -1;
+        return createErrorResponse(HttpStatus.BAD_REQUEST, errorCode, ex.getMessage(), webRequest.getDescription(false));
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ApiResponse> notfoundExceptionHandler(Exception ex, WebRequest webRequest) {
-        return createErrorResponse(HttpStatus.NOT_FOUND, ErrorCodes.NOT_FOUND_BUSINESS_CODE_1, ex.getMessage(), webRequest.getDescription(false));
+    public ResponseEntity<ApiResponse> notfoundExceptionHandler(NotFoundException ex, WebRequest webRequest) {
+        int errorCode = (ex.getErrorCode() > 0) ? ex.getErrorCode() : -1;
+        return createErrorResponse(HttpStatus.NOT_FOUND, errorCode, ex.getMessage(), webRequest.getDescription(false));
     }
 
     @ExceptionHandler(Exception.class)

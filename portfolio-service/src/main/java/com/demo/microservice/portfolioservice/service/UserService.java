@@ -4,6 +4,7 @@ import com.demo.microservice.portfolioservice.exception.NotFoundException;
 import com.demo.microservice.portfolioservice.model.User;
 import com.demo.microservice.portfolioservice.payload.request.UserRequest;
 import com.demo.microservice.portfolioservice.repository.UserRepository;
+import com.demo.microservice.portfolioservice.util.ErrorCodes;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class UserService {
     public User updateUser(Long userId, UserRequest userRequest) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
-            throw new NotFoundException(String.format("User Not Found %s", userId));
+            throw new NotFoundException(ErrorCodes.NOT_FOUND_BUSINESS_CODE_2, String.format("User Not Found %s", userId));
         }
         User userMapped = optionalUser.get();
         modelMapper.map(userRequest, userMapped);
