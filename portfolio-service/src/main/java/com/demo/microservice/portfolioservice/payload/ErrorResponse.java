@@ -1,15 +1,16 @@
 package com.demo.microservice.portfolioservice.payload;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Date;
 
 @Data
+@AllArgsConstructor
 public class ErrorResponse {
-    private String code;
+    private int statusCode;
+    private Date timestamp;
     private String message;
-    private String details;
-    private Map<String, List<String>> validationErrors;
+    private String description;
 
 }
