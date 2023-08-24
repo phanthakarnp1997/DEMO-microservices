@@ -2,7 +2,7 @@ package com.demo.microservice.portfolioservice.exception;
 
 import com.demo.microservice.portfolioservice.payload.ApiResponse;
 import com.demo.microservice.portfolioservice.payload.ErrorResponse;
-import com.demo.microservice.portfolioservice.util.ErrorCodes;
+import com.demo.microservice.portfolioservice.util.constant.ErrorCodes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

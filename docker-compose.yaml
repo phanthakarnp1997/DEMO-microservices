@@ -1,11 +1,56 @@
-version: "3.8"
-
+version: '3.8'
 services:
-  mysql-spring-boot:
+  zipkin-server:
+    image: 'openzipkin/zipkin:2.23'
+    mem_limit: 300m
+    ports:
+      - '9411:9411'
+    networks:
+      - portfolio-network
+  mysql-db:
     image: mysql
-    container_name: mysql-spring-boot
-    command: --lower_case_table_names=1
+    command: '--lower_case_table_names=1'
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3306:3306"
+      - '3306:3306'
+    networks:
+      - portfolio-network
+  api-gateway:
+    image: 'phanthakarn1997/api-gateway:0.0.1-SNAPSHOT'
+    mem_limit: 700m
+    ports:
+      - '8765:8765'
+    networks:
+      - portfolio-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: 'http://naming-server:8761/eureka'
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: 'http://zipkin-server:9411/api/v2/spans'
+  naming-server:
+    image: 'phanthakarn1997/naming-server:0.0.1-SNAPSHOT'
+    mem_limit: 700m
+    ports:
+      - '8761:8761'
+    networks:
+      - portfolio-network
+  portfolio-service:
+    image: 'phanthakarn1997/portfolio-service:0.0.1-SNAPSHOT'
+    mem_limit: 700m
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-db:3306/portfolio?createDatabaseIfNotExist=true'
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: 'http://naming-server:8761/eureka'
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: 'http://zipkin-server:9411/api/v2/spans'
+    depends_on:
+      - naming-server
+      - mysql-db
+    ports:
+      - '8000:8000'
+    networks:
+      - portfolio-network
+networks:
+  portfolio-network: null

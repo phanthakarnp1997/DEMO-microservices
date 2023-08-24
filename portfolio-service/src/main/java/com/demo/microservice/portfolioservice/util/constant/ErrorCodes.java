@@ -1,4 +1,4 @@
-package com.demo.microservice.portfolioservice.util;
+package com.demo.microservice.portfolioservice.util.constant;
 
 public class ErrorCodes {
     public static final int ERROR_BUSINESS_CODE_1 = 999;
