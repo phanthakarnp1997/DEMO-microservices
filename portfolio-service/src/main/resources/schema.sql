@@ -13,6 +13,20 @@ CREATE TABLE IF NOT EXISTS `User` (
                                       `aboutme` LONGTEXT NULL
 );
 
+-- Table Job
+CREATE TABLE IF NOT EXISTS `Job` (
+                                     `job_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                     `companyname` VARCHAR(255) NULL,
+                                     `started_at` DATE NULL,
+                                     `ended_at` DATE NULL,
+                                     `created_at` DATETIME NULL,
+                                     `updated_at` DATETIME NULL,
+                                     `is_ended` TINYINT NULL,
+                                     `user_id` BIGINT NOT NULL,
+                                     `role` LONGTEXT NULL,
+                                     CONSTRAINT `fk_Job_user1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`)
+                                         ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 -- Table Socialaccount
 CREATE TABLE IF NOT EXISTS `Socialaccount` (
