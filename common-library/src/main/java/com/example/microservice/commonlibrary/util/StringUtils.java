@@ -1,4 +1,4 @@
-package com.demo.microservice.portfolioservice.util;
+package com.example.microservice.commonlibrary.util;
 
 public class StringUtils {
     public static boolean isNullOrEmpty(String str) {

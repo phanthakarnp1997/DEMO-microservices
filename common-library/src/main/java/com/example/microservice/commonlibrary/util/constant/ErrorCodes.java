@@ -1,4 +1,4 @@
-package com.demo.microservice.portfolioservice.util.constant;
+package com.example.microservice.commonlibrary.util.constant;
 
 public class ErrorCodes {
     public static final int ERROR_BUSINESS_CODE_1 = 999;

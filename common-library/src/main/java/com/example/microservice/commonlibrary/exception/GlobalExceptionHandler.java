@@ -1,8 +1,8 @@
-package com.demo.microservice.portfolioservice.exception;
+package com.example.microservice.commonlibrary.exception;
 
-import com.demo.microservice.portfolioservice.payload.ApiResponse;
-import com.demo.microservice.portfolioservice.payload.ErrorResponse;
-import com.demo.microservice.portfolioservice.util.constant.ErrorCodes;
+import com.example.microservice.commonlibrary.payload.ApiResponse;
+import com.example.microservice.commonlibrary.payload.ErrorResponse;
+import com.example.microservice.commonlibrary.util.constant.ErrorCodes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

@@ -1,4 +1,4 @@
-package com.demo.microservice.portfolioservice.util;
+package com.example.microservice.commonlibrary.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

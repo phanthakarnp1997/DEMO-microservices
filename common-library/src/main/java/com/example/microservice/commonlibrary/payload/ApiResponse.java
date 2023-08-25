@@ -1,6 +1,6 @@
-package com.demo.microservice.portfolioservice.payload;
+package com.example.microservice.commonlibrary.payload;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
 public class ApiResponse<T> {

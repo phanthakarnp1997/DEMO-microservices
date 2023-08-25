@@ -1,6 +1,6 @@
-package com.demo.microservice.portfolioservice.exception;
+package com.example.microservice.commonlibrary.exception;
 
-import com.demo.microservice.portfolioservice.payload.ApiResponse;
+import com.example.microservice.commonlibrary.payload.ApiResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

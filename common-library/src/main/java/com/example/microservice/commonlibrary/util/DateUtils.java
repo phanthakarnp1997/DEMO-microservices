@@ -1,4 +1,4 @@
-package com.demo.microservice.portfolioservice.util;
+package com.example.microservice.commonlibrary.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

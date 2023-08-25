@@ -1,4 +1,4 @@
-package com.demo.microservice.portfolioservice.payload;
+package com.example.microservice.commonlibrary.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
