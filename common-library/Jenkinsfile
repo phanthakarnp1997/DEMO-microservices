@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    def mvnCmd = "${MAVEN_HOME}/bin/mvn"
+                    sh "${mvnCmd} clean deploy -Drevision=1.0.0 -f pom.xml --settings settings.xml"
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage('Build Docker image') {
+            steps {
+                script {
+                    sh 'mvn dockerfile:build'
+                }
+            }
+        }
+        stage('Run Docker Image') {
+            steps {
+                script {
+                    sh 'mvn dockerfile:run'
+                }
+            }
+        }
+    }
+}
