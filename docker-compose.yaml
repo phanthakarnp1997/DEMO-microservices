@@ -39,6 +39,7 @@ services:
     image: 'phanthakarn1997/portfolio-service:0.0.1-SNAPSHOT'
     mem_limit: 700m
     environment:
+      SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-db:3306/portfolio?createDatabaseIfNotExist=true'
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root

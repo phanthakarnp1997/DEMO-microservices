@@ -14,8 +14,8 @@ import java.util.Date;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private ResponseEntity<ApiResponse> createErrorResponse(HttpStatus status, int errorCode, String message, String description) {
-        ErrorResponse errorResponse = new ErrorResponse(errorCode, new Date(), message, description);
+    private ResponseEntity<ApiResponse> createErrorResponse(HttpStatus status, ErrorCodes errorCode, String message, String description) {
+        ErrorResponse errorResponse = new ErrorResponse(errorCode.getValue(), new Date(), message, description);
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setError(errorResponse);
         return new ResponseEntity<>(apiResponse, status);
@@ -23,14 +23,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ApiResponse> badRequestExceptionHandler(BadRequestException ex, WebRequest webRequest) {
-        int errorCode = (ex.getErrorCode() > 0) ? ex.getErrorCode() : -1;
-        return createErrorResponse(HttpStatus.BAD_REQUEST, errorCode, ex.getMessage(), webRequest.getDescription(false));
+        return createErrorResponse(HttpStatus.BAD_REQUEST, ex.getErrorCode(), ex.getMessage(), webRequest.getDescription(false));
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ApiResponse> notfoundExceptionHandler(NotFoundException ex, WebRequest webRequest) {
-        int errorCode = (ex.getErrorCode() > 0) ? ex.getErrorCode() : -1;
-        return createErrorResponse(HttpStatus.NOT_FOUND, errorCode, ex.getMessage(), webRequest.getDescription(false));
+        return createErrorResponse(HttpStatus.NOT_FOUND, ex.getErrorCode(), ex.getMessage(), webRequest.getDescription(false));
     }
 
     @ExceptionHandler(Exception.class)
@@ -40,7 +38,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, WebRequest webRequest) {
-        return createErrorResponse(HttpStatus.BAD_REQUEST, -1, ex.getMessage(), webRequest.getDescription(false));
+        return createErrorResponse(HttpStatus.BAD_REQUEST, ErrorCodes.DEFAULT_CODE, ex.getMessage(), webRequest.getDescription(false));
     }
 
 //    @ExceptionHandler(NoHandlerFoundException.class)

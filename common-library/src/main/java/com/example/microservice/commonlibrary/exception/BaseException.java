@@ -1,6 +1,7 @@
 package com.example.microservice.commonlibrary.exception;
 
 import com.example.microservice.commonlibrary.payload.ApiResponse;
+import com.example.microservice.commonlibrary.util.constant.ErrorCodes;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,9 +9,9 @@ import lombok.EqualsAndHashCode;
 @Data
 public class BaseException extends RuntimeException {
     private ApiResponse apiResponse;
-    private int errorCode;
+    private ErrorCodes errorCode = ErrorCodes.ERROR_BUSINESS_CODE_1;
 
-    public BaseException(int errorCode, String message) {
+    public BaseException(ErrorCodes errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
