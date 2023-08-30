@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    config:
+      profile: '@spring.profiles.active@'
+  config:
+    import: optional:configserver:http://localhost:8888
+  application:
+    name: portfolio-service
+  profiles:
+    active: '@spring.profiles.active@'
