@@ -1,6 +1,7 @@
 package com.demo.microservice.portfolioservice;
 
 import com.example.microservice.commonlibrary.annotation.EnableCommonLibrary;
+import com.example.microservice.commonlibrary.annotation.EnableCommonSecurity;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
