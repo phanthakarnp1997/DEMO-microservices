@@ -1,0 +1,26 @@
+springdoc:
+  api-docs:
+    path: /portfolio-service/v3/api-docs
+  swagger-ui:
+    path: /portfolio-service/swagger-ui.html
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/portfolio?createDatabaseIfNotExist=true
+    password: root
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: 'true'
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+server:
+  port: '8000'
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: 'true'
