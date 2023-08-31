@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/portfolio/v1")
+@RequestMapping("/api/portfolio/v1")
 public class UserController {
     private final UserService userService;
 
