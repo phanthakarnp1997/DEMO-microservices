@@ -4,11 +4,13 @@ import com.example.microservice.commonlibrary.payload.ApiResponse;
 import com.example.microservice.commonlibrary.payload.ErrorResponse;
 import com.example.microservice.commonlibrary.util.constant.ErrorCodes;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 
@@ -39,6 +41,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, WebRequest webRequest) {
         return createErrorResponse(HttpStatus.BAD_REQUEST, ErrorCodes.DEFAULT_CODE, ex.getMessage(), webRequest.getDescription(false));
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiResponse> handleHttpMessageNotReadable(ResponseStatusException ex, WebRequest webRequest) {
+        HttpStatusCode httpStatus = ex.getStatusCode();
+        if(httpStatus == HttpStatus.UNAUTHORIZED){
+            return createErrorResponse(HttpStatus.UNAUTHORIZED, ErrorCodes.UNAUTHORIZED_CODE, ex.getMessage(), webRequest.getDescription(false));
+        }
+        return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCodes.DEFAULT_CODE, ex.getMessage(), webRequest.getDescription(false));
     }
 
 //    @ExceptionHandler(NoHandlerFoundException.class)
