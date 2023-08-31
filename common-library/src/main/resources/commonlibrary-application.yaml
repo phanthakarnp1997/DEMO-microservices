@@ -1,3 +1,6 @@
 spring:
   application:
     name: common-library
+
+jwt:
+  secret: c0b91c24ac1c6e1e5c0d1e2d3c4b5a6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2

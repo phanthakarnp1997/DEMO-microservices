@@ -20,7 +20,11 @@ public class GatewayConfiguration {
         RouteLocatorBuilder.Builder routes = builder.routes();
 
         routes.route("portfolio-route", p -> p
-                .path("/portfolio/**")
+                .path("/api/portfolio/**")
+                .uri("lb://portfolio-service"));
+
+        routes.route("authenticate-route", p -> p
+                .path("/api/authenticate/**")
                 .uri("lb://portfolio-service"));
 
         routes.route("openapi-route", p -> p
