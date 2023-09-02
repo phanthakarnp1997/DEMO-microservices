@@ -1,10 +1,10 @@
 -- Mock Data for User table
 INSERT INTO `User` (`firstname`, `lastname`, `email`, `hash_password`, `lastlogin`, `aboutme`)
-SELECT 'John', 'Doe', 'john@example.com', 'hashed_password_1', '2023-08-19 10:00:00', 'About John'
+SELECT 'John', 'Doe', 'john@example.com', '$2a$10$D9ZgGXPVrhbggCnLZxXBru9efKli1mH6etpyrMeK0X4odRc8d508e', '2023-08-19 10:00:00', 'About John'
 WHERE NOT EXISTS (SELECT 1 FROM `User` WHERE `email` = 'john@example.com');
 
 INSERT INTO `User` (`firstname`, `lastname`, `email`, `hash_password`, `lastlogin`, `aboutme`)
-SELECT 'Jane', 'Smith', 'jane@example.com', 'hashed_password_2', '2023-08-18 15:30:00', 'About Jane'
+SELECT 'Jane', 'Smith', 'jane@example.com', '$2a$10$D9ZgGXPVrhbggCnLZxXBru9efKli1mH6etpyrMeK0X4odRc8d508e', '2023-08-18 15:30:00', 'About Jane'
 WHERE NOT EXISTS (SELECT 1 FROM `User` WHERE `email` = 'jane@example.com');
 
 -- Mock Data for Job table

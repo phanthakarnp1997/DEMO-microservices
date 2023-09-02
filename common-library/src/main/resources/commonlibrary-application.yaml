@@ -1,6 +1,15 @@
 spring:
   application:
     name: common-library
+  jpa:
+    defer-datasource-initialization: 'false'
+    show-sql: 'false'
+    hibernate:
+      ddl-auto: none
+  datasource:
+    password: root
+    username: root
+    url: jdbc:mysql://localhost:3306/portfolio?createDatabaseIfNotExist=false
 
 jwt:
   secret: c0b91c24ac1c6e1e5c0d1e2d3c4b5a6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2

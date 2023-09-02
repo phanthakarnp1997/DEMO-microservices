@@ -4,13 +4,20 @@ import com.example.microservice.commonlibrary.payload.ApiResponse;
 import com.example.microservice.commonlibrary.payload.ErrorResponse;
 import com.example.microservice.commonlibrary.util.constant.ErrorCodes;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -39,6 +46,29 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, WebRequest webRequest) {
         return createErrorResponse(HttpStatus.BAD_REQUEST, ErrorCodes.DEFAULT_CODE, ex.getMessage(), webRequest.getDescription(false));
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiResponse> handleHttpMessageNotReadable(ResponseStatusException ex, WebRequest webRequest) {
+        HttpStatusCode httpStatus = ex.getStatusCode();
+        if (httpStatus == HttpStatus.UNAUTHORIZED) {
+            return createErrorResponse(HttpStatus.UNAUTHORIZED, ErrorCodes.UNAUTHORIZED_CODE, ex.getMessage(), webRequest.getDescription(false));
+        }
+        return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCodes.DEFAULT_CODE, ex.getMessage(), webRequest.getDescription(false));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse> handleValidationException(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        String validateMessage = errors.keySet().stream()
+                .map(errors::get)
+                .collect(Collectors.joining(System.lineSeparator()));
+        return this.createErrorResponse(HttpStatus.BAD_REQUEST, ErrorCodes.BAD_REQUEST_BUSINESS_CODE_1, validateMessage, "");
     }
 
 //    @ExceptionHandler(NoHandlerFoundException.class)
