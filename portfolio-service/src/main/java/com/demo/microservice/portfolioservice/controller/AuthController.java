@@ -1,11 +1,10 @@
 package com.demo.microservice.portfolioservice.controller;
 
-import com.demo.microservice.portfolioservice.model.User;
-import com.example.microservice.commonlibrary.payload.ApiResponse;
-import com.example.microservice.commonlibrary.payload.request.AuthenticationRequest;
-import com.example.microservice.commonlibrary.payload.response.AuthenticationResponse;
-import com.example.microservice.commonlibrary.service.JwtTokenService;
-import com.example.microservice.commonlibrary.service.JwtUserDetailsService;
+import com.demo.microservice.commonlibrary.payload.ApiResponse;
+import com.demo.microservice.commonlibrary.payload.request.AuthenticationRequest;
+import com.demo.microservice.commonlibrary.payload.response.AuthenticationResponse;
+import com.demo.microservice.commonlibrary.service.JwtTokenService;
+import com.demo.microservice.commonlibrary.service.JwtUserDetailsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,14 +15,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/authenticate/v1")
@@ -33,9 +29,6 @@ public class AuthController {
 
     @Autowired
     private JwtTokenService jwtTokenService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
