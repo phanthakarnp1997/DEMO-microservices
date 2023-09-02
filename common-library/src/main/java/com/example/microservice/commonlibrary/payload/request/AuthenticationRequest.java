@@ -1,14 +1,17 @@
 package com.example.microservice.commonlibrary.payload.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NonNull;
 
 @Data
 public class AuthenticationRequest {
 
-    @NonNull
+    @NotNull(message = "UserName Can't be Null.")
+    @NotBlank(message = "UserName Can't be Blank.")
     private String userName;
 
-    @NonNull
+    @NotNull(message = "Password Can't be Null.")
+    @NotBlank(message = "Password Can't be Blank.")
     private String password;
 }
