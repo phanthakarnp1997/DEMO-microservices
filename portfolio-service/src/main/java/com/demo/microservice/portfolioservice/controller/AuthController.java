@@ -43,13 +43,13 @@ public class AuthController {
     @PostMapping("/exchange-token")
     public ResponseEntity<ApiResponse<AuthenticationResponse>> authenticate(@RequestBody @Valid final AuthenticationRequest authenticationRequest) {
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUserName(), authenticationRequest.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (final BadCredentialsException ex) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
 
-        final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUserName());
+        final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final AuthenticationResponse authenticationResponse = new AuthenticationResponse();
 
         authenticationResponse.setAccessToken(jwtTokenService.generateToken(userDetails));

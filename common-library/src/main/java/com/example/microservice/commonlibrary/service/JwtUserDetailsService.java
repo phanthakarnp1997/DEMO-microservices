@@ -1,6 +1,10 @@
 package com.example.microservice.commonlibrary.service;
 
+import com.example.microservice.commonlibrary.entity.AuthenticationEntity;
+import com.example.microservice.commonlibrary.exception.NotFoundException;
 import com.example.microservice.commonlibrary.payload.jwt.JwtUserDetails;
+import com.example.microservice.commonlibrary.repository.AuthenticationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,9 +16,15 @@ import java.util.List;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+    @Autowired
+    private AuthenticationRepository repository;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final List<SimpleGrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority("USER_ROLE"));
-        return new JwtUserDetails(1L, username, "$2a$10$xSUWQi1LFz4MnsIpzp3QNOz1WgU1hA7/oTlUp43FdQ8Z9YpBEc3sK", roles);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        final List<SimpleGrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority("USER"));
+
+        AuthenticationEntity authenticationEntity = repository.findAuthenticationEntityByEmail(email).orElseThrow(() -> new NotFoundException("Email Not Found"));
+
+        return new JwtUserDetails(authenticationEntity.getId(), authenticationEntity.getEmail(), authenticationEntity.getPassword(), roles);
     }
 }
