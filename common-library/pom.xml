@@ -11,7 +11,7 @@
         <relativePath/>
         <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example.microservice</groupId>
+    <groupId>com.demo.microservice</groupId>
     <artifactId>common-library</artifactId>
     <version>${revision}</version>
     <name>common-library</name>
