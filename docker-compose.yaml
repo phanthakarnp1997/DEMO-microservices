@@ -14,6 +14,11 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - '3306:3306'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
     networks:
       - portfolio-network
   api-gateway:
@@ -25,6 +30,11 @@ services:
       - portfolio-network
     depends_on:
       - naming-server
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://naming-server:8761/eureka"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: 'http://naming-server:8761/eureka'
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: 'http://zipkin-server:9411/api/v2/spans'
@@ -35,6 +45,11 @@ services:
       - '8761:8761'
     networks:
       - portfolio-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8761/eureka"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
   portfolio-service:
     image: 'phanthakarn1997/portfolio-service:0.0.1-SNAPSHOT'
     mem_limit: 700m
@@ -47,11 +62,11 @@ services:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: 'http://naming-server:8761/eureka'
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: 'http://zipkin-server:9411/api/v2/spans'
     depends_on:
-      - naming-server
-      - mysql-db
+      mysql-db:
+        condition: service_healthy
     ports:
       - '8000:8000'
     networks:
       - portfolio-network
 networks:
-  portfolio-network: null
+  portfolio-network:
